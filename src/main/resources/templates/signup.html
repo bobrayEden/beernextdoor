@@ -18,18 +18,20 @@
 </header>
 <div class="main-template-title">
     <h1 class="title">Beer Next Door</h1>
-    <a th:href="@{/login}">J'ai déjà un compte</a>
-    <form class="sign-up-form" th:action="@{/sign-in}" method="post" th:object="${user}">
-        <label th:for="nameUser">Nom d'utilisateur</label>
-        <input type="text" th:field="*{nameUser}"/>
-        <label th:for="email">E-mail</label>
-        <input type="text" th:field="*{email}"/>
-        <label th:for="password">Mot de passe</label>
-        <input type="password" th:field="*{password}"/>
-        <label for="confirm-pass">Confirmation du mot de pass</label>
-        <input id="confirm-pass" type="text"/>
-        <input type="submit" value="Valider" name="registerUser">
-    </form>
+    <div class="sign-up-form">
+        <a th:href="@{/login}">J'ai déjà un compte</a>
+        <form th:action="@{/sign-in}" method="post" th:object="${user}">
+            <label th:for="nameUser">Nom d'utilisateur</label>
+            <input type="text" th:field="*{nameUser}"/>
+            <label th:for="email">E-mail</label>
+            <input type="text" th:field="*{email}"/>
+            <label th:for="password">Mot de passe</label>
+            <input type="password" th:field="*{password}"/>
+            <label for="confirmPass">Confirmation du mot de passe</label>
+            <input id="confirmPass" type="password" name="confirmPass"/>
+            <input type="submit" value="Valider" name="registerUser">
+        </form>
+    </div>
 
 </div>
 <footer class="footer-template">

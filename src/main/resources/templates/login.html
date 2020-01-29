@@ -18,14 +18,16 @@
 </header>
 <div class="main-template-title">
     <h1 class="title">Beer Next Door</h1>
-    <a th:href="@{/sign-up}">J'ai déjà un compte</a>
-    <form class="sign-up-form" th:action="@{/connexion}" method="post">
-        <label for="nameUser">Nom d'utilisateur</label>
-        <input type="text" id="nameUser" name="nameUser"/>
-        <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password"/>
-        <input type="submit" value="Valider" name="logInUser">
-    </form>
+    <div class="sign-up-form">
+        <a th:href="@{/sign-up}">Je n'ai pas de compte</a>
+        <form th:action="@{/connexion}" method="post">
+            <label for="nameUser">Nom d'utilisateur</label>
+            <input type="text" id="nameUser" name="nameUser"/>
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" name="password"/>
+            <input type="submit" value="Valider" name="logInUser">
+        </form>
+    </div>
 </div>
 <footer class="footer-template">
 

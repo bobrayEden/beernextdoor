@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class TemplateController {
 
@@ -22,7 +24,7 @@ public class TemplateController {
     }
 
     @GetMapping("/login")
-    public  String toLog() {
+    public String toLog() {
         return "login";
     }
 
@@ -39,22 +41,38 @@ public class TemplateController {
     }
 
     @PostMapping("/connexion")
-    public String connexion() {
-        return "redirect:/main-page";
+    public String connexion(@RequestParam String nameUser,
+                            @RequestParam String password,
+                            HttpSession session) {
+        if (userRepository.findByNameUserAndPassword(nameUser, password).isPresent()) {
+            User user = userRepository.findByNameUserAndPassword(nameUser, password).get();
+            session.setAttribute("user", user);
+            return "redirect:/main-page";
+        } else if (userRepository.findByEmailAndPassword(nameUser, password).isPresent()) {
+            User user = userRepository.findByEmailAndPassword(nameUser, password).get();
+            session.setAttribute("user", user);
+            return "redirect:/main-page";
+        }
+        return "login";
     }
 
     @PostMapping("/sign-in")
     public String signIn(Model out,
+                         HttpSession session,
+                         @RequestParam String confirmPass,
                          @ModelAttribute User user) {
         out.addAttribute("user", user);
+        out.addAttribute("confirmPass", confirmPass);
         if (user.getNameUser() != null) {
             if (userRepository.findByNameUser(user.getNameUser()).isPresent()) {
                 return "redirect:/sign-up";
             }
-            //TODO checker le mot de passe et sa confirmation
-            userRepository.saveAndFlush(user);
-            out.addAttribute("user", user);
-            return "redirect:/main-page";
+            if (user.getPassword().equals(confirmPass)) {
+                userRepository.saveAndFlush(user);
+                out.addAttribute("user", user);
+                session.setAttribute("user", user);
+                return "redirect:/main-page";
+            }
         }
         return "redirect:/sign-up";
     }
