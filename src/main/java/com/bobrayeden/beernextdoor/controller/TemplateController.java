@@ -81,4 +81,9 @@ public class TemplateController {
     public String toProfile() {
         return "profile";
     }
+
+    @GetMapping("/logout")
+    public String logOut() {
+        return "redirect:/";
+    }
 }

@@ -8,10 +8,38 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link th:href="@{css/style.css}" href="../static/css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+          integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+          crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""></script>
     <!--link rel="shortcut icon" th:href="@{images/favicon.png}"/-->
     <title>Beer Next Door</title>
 </head>
 <body>
-
+<header class="header-template">
+    <a th:href="@{/user-profile}">Profil</a>
+    <img/>
+    <a th:href="@{/logout}">Log Out</a>
+</header>
+<div class="main-page-template">
+    <div class="map-search">
+        <div class="leaflet" id="map">
+        </div>
+    </div>
+    <div class="search">
+        <form>
+            <label>Chercher par type de bière</label>
+            <select></select>
+            <input type="submit" value="Go"/>
+        </form>
+        <form>
+            <label>Chercher par brasserie</label>
+            <select></select>
+            <input type="submit" value="Go"/>
+        </form>
+    </div>
+</div>
 </body>
 </html>

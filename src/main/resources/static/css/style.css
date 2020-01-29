@@ -15,6 +15,12 @@
     height: 84vh;
 }
 
+.main-page-template {
+    display: grid;
+    grid-template: 2fr 1fr / 10px 1fr 10px;
+    height: 84vh;
+}
+
 .footer-template {
     display: grid;
     grid-template: 60px / 10px 1fr 10px;
@@ -46,4 +52,20 @@
     grid-row: 2 / 3;
     display: flex;
     flex-direction: column;
+}
+
+.map-search {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.search {
+    grid-column: 2 / 3;
+    grid-row: 2 /3;
+    display: flex;
+    flex-direction: column;
+}
+
+#map {
+    height: 350px;
 }
