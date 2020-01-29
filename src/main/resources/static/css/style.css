@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.header-template {
+    display: grid;
+    grid-template: 1fr / 10px 1fr 40px 1fr 10px;
+    height: 6.25vh
+}
+
+.main-template-title {
+    display: grid;
+    grid-template: 0.5fr 1fr 0.5fr / 10px 1fr 10px;
+    height: 84vh;
+}
+
+.footer-template {
+    display: grid;
+    grid-template: 60px / 10px 1fr 10px;
+}
+
+.title {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.summary {
+    grid-column : 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.goTo {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
+    display: flex;
+    flex-direction: column;
+}
+
+.goTo > a {
+
+}
+
+.sign-up-form {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}

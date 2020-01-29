@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Olivier Nocaudie">
+    <meta name="description" content="Beer Next Door">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link th:href="@{css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+    <!--link rel="shortcut icon" th:href="@{images/favicon.png}"/-->
+    <title>Beer Next Door - Log In</title>
+</head>
+<body>
+<header class="header-template">
+    <img/>
+    <a th:href="@{/login}">To Login</a>
+</header>
+<div class="main-template-title">
+    <h1 class="title">Beer Next Door</h1>
+    <a th:href="@{/sign-up}">J'ai déjà un compte</a>
+    <form class="sign-up-form" th:action="@{/connexion}" method="post">
+        <label for="nameUser">Nom d'utilisateur</label>
+        <input type="text" id="nameUser" name="nameUser"/>
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" name="password"/>
+        <input type="submit" value="Valider" name="logInUser">
+    </form>
+</div>
+<footer class="footer-template">
+
+</footer>
+
+</body>
+</html>
