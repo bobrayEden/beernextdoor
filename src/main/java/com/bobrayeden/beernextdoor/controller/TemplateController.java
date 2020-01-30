@@ -1,11 +1,7 @@
 package com.bobrayeden.beernextdoor.controller;
 
-import com.bobrayeden.beernextdoor.entity.Beer;
-import com.bobrayeden.beernextdoor.entity.Type;
-import com.bobrayeden.beernextdoor.entity.User;
-import com.bobrayeden.beernextdoor.repository.BeerRepository;
-import com.bobrayeden.beernextdoor.repository.TypeRepository;
-import com.bobrayeden.beernextdoor.repository.UserRepository;
+import com.bobrayeden.beernextdoor.entity.*;
+import com.bobrayeden.beernextdoor.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +27,12 @@ public class TemplateController {
     @Autowired
     TypeRepository typeRepository;
 
+    @Autowired
+    BrandRepository brandRepository;
+
+    @Autowired
+    StoreRepository storeRepository;
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -51,7 +53,87 @@ public class TemplateController {
     @GetMapping("/main-page")
     public String toMain(Model out,
                          HttpSession session) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        List<Store> stores = storeRepository.findAll();
+        out.addAttribute("stores", stores);
+
+        List<Float[]> storeCoords = new ArrayList<>();
+        for (Store store : stores) {
+            storeCoords.add(store.getCoord());
+        }
+        out.addAttribute("storeCoords", storeCoords);
+
         return "main";
+    }
+
+    @GetMapping("/search-beer")
+    public String searchByBeer(Model out,
+                               @RequestParam Long idBeer) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        if (idBeer != null && idBeer != 0) {
+            List<Store> stores = beerRepository.findById(idBeer).get().getStores();
+            out.addAttribute("storeResults", stores);
+            return "main";
+        }
+        return "redirect:/main-page";
+    }
+
+    @GetMapping("/search-type")
+    public String searchByType(Model out,
+                               @RequestParam Long idType) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        if (idType != null && idType != 0) {
+            List<Store> stores = beerRepository.findById(idType).get().getStores();
+            out.addAttribute("storeResults", stores);
+            return "main";
+        }
+        return "redirect:/main-page";
+    }
+
+
+    @GetMapping("/search-brewery")
+    public String searchByBrand(Model out,
+                                @RequestParam Long idBrand) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        if (idBrand != null && idBrand != 0) {
+            List<Store> stores = beerRepository.findById(idBrand).get().getStores();
+            out.addAttribute("storeResults", stores);
+
+            return "main";
+        }
+        return "redirect:/main-page";
     }
 
     @PostMapping("/connexion")
@@ -168,4 +250,6 @@ public class TemplateController {
         session.removeAttribute("user");
         return "redirect:/";
     }
+
+
 }
