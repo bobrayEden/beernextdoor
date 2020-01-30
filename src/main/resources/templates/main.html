@@ -59,10 +59,16 @@
                         th:value="${brand.getIdBrand()}"
                         th:text="${brand.getNameBrand()}">
                 </option>
-
             </select>
             <input type="submit" value="Go"/>
         </form>
+    </div>
+    <div class="results">
+        <p>Results:</p>
+        <ul th:each="store : ${storeResults}">
+            <li th:text="${store.getNameStore()}"></li>
+            <li th:text="${store.getAddress()}"></li>
+        </ul>
     </div>
 </div>
 <footer class="footer-template">
@@ -72,9 +78,7 @@
     let mymap = L.map('map').locate({setView: true, maxZoom: 16});
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
         maxZoom: 16,
         id: 'mapbox/streets-v11',
         accessToken: 'pk.eyJ1IjoiYm9icmF5ZWRlbiIsImEiOiJjazV6ajk4YmUxZmY1M2xydnI4dWk2bG5mIn0.TjX5W6cvHiO4B1NoXr0WqQ'
@@ -84,7 +88,6 @@
     let latlng2 = [43.5984, 1.43345];
     const marker = L.marker(latlng).addTo(mymap);
     const marker2 = L.marker(latlng2).addTo(mymap);
-
 
 
 </script>

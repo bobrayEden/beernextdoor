@@ -92,5 +92,9 @@ public class Store {
     public void setLng(Float lng) {
         this.lng = lng;
     }
+
+    public Float[] getCoord() {
+        return new Float[] {this.getLat(), this.getLng()};
+    }
 }
 
