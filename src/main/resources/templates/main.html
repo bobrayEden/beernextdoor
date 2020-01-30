@@ -29,14 +29,38 @@
         </div>
     </div>
     <div class="search">
-        <form>
-            <label>Chercher par type de bière</label>
-            <select></select>
+        <form th:action="@{search-beer}" method="get">
+            <label for="idBeer">Search by beer name</label>
+            <select id="idBeer" name="idBeer">
+                <option selected value="0">Choose a beer</option>
+                <option th:each="beer : ${beers}"
+                        th:value="${beer.getIdBeer()}"
+                        th:text="${beer.getNameBeer()}">
+                </option>
+            </select>
             <input type="submit" value="Go"/>
         </form>
-        <form>
-            <label>Chercher par brasserie</label>
-            <select></select>
+        <form th:action="@{search-type}" method="get">
+            <label for="idType">Search by beer type</label>
+            <select id="idType" name="idType">
+                <option selected value="0">Choose a beer type</option>
+                <option th:each="type : ${types}"
+                        th:value="${type.getIdType()}"
+                        th:text="${type.getNameType()}">
+                </option>
+            </select>
+            <input type="submit" value="Go"/>
+        </form>
+        <form th:action="@{search-brewery}" method="get">
+            <label for="idBrand">Search by brewery</label>
+            <select id="idBrand" name="idBrand">
+                <option selected value="0">Choose a brewery</option>
+                <option th:each="brand : ${brands}"
+                        th:value="${brand.getIdBrand()}"
+                        th:text="${brand.getNameBrand()}">
+                </option>
+
+            </select>
             <input type="submit" value="Go"/>
         </form>
     </div>

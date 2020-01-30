@@ -30,8 +30,8 @@
 </div>
 <div> <!-- fav beers -->
     <form th:action="@{/post-beer}" method="post">
-        <label>Add a favorite beer</label>
-        <select name="idBeer">
+        <label for="idBeer">Add a favorite beer</label>
+        <select id="idBeer" name="idBeer">
             <option selected value="0">Choose a beer</option>
             <option th:each="beer : ${beers}"
                     th:value="${beer.getIdBeer()}"
@@ -47,8 +47,8 @@
 </div>
 <div>
     <form th:action="@{/post-type}" method="post">
-        <label>Add a favorite beer's type</label>
-        <select name="idType">
+        <label for="idType">Add a favorite beer's type</label>
+        <select id="idType" name="idType">
             <option selected value="0">Choose a type</option>
             <option th:each="type : ${types}"
                     th:value="${type.getIdType()}"

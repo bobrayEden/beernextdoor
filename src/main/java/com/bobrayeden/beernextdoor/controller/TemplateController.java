@@ -1,9 +1,11 @@
 package com.bobrayeden.beernextdoor.controller;
 
 import com.bobrayeden.beernextdoor.entity.Beer;
+import com.bobrayeden.beernextdoor.entity.Brand;
 import com.bobrayeden.beernextdoor.entity.Type;
 import com.bobrayeden.beernextdoor.entity.User;
 import com.bobrayeden.beernextdoor.repository.BeerRepository;
+import com.bobrayeden.beernextdoor.repository.BrandRepository;
 import com.bobrayeden.beernextdoor.repository.TypeRepository;
 import com.bobrayeden.beernextdoor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class TemplateController {
     @Autowired
     TypeRepository typeRepository;
 
+    @Autowired
+    BrandRepository brandRepository;
+
     @GetMapping("/")
     public String index() {
         return "index";
@@ -51,6 +56,20 @@ public class TemplateController {
     @GetMapping("/main-page")
     public String toMain(Model out,
                          HttpSession session) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        return "main";
+    }
+
+    @GetMapping("/search-beer")
+    public String searchByBeer() {
         return "main";
     }
 
