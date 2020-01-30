@@ -80,8 +80,10 @@
         accessToken: 'pk.eyJ1IjoiYm9icmF5ZWRlbiIsImEiOiJjazV6ajk4YmUxZmY1M2xydnI4dWk2bG5mIn0.TjX5W6cvHiO4B1NoXr0WqQ'
     }).addTo(mymap);
 
-    let latlng = navigator.geolocation.getCurrentPosition();
+    let latlng = [43.5973, 1.42975];
+    let latlng2 = [43.5984, 1.43345];
     const marker = L.marker(latlng).addTo(mymap);
+    const marker2 = L.marker(latlng2).addTo(mymap);
 
 
 

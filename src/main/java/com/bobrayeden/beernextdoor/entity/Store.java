@@ -14,6 +14,8 @@ public class Store {
     private Long idStore;
     private String nameStore;
     private String address;
+    private Float lat;
+    private Float lng;
     private Boolean isTemple;
     private String picturePath;
 
@@ -74,4 +76,21 @@ public class Store {
     public void setStoreBeers(List<Beer> storeBeers) {
         this.storeBeers = storeBeers;
     }
+
+    public Float getLat() {
+        return lat;
+    }
+
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+
+    public Float getLng() {
+        return lng;
+    }
+
+    public void setLng(Float lng) {
+        this.lng = lng;
+    }
 }
+

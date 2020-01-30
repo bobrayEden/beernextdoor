@@ -69,7 +69,44 @@ public class TemplateController {
     }
 
     @GetMapping("/search-beer")
-    public String searchByBeer() {
+    public String searchByBeer(Model out) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        return "main";
+    }
+
+    @GetMapping("/search-type")
+    public String searchByType(Model out) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        return "main";
+    }
+
+    @GetMapping("/search-brewery")
+    public String searchByBrand(Model out) {
+        List<Brand> brands = brandRepository.findAll();
+        out.addAttribute("brands", brands);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
         return "main";
     }
 
@@ -187,4 +224,6 @@ public class TemplateController {
         session.removeAttribute("user");
         return "redirect:/";
     }
+
+
 }
