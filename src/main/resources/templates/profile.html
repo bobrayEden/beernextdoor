@@ -8,10 +8,64 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link th:href="@{css/style.css}" href="../static/css/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
-    <!--link rel="shortcut icon" th:href="@{images/favicon.png}"/-->
     <title>Beer Next Door - Profile</title>
 </head>
 <body>
+<header class="header-template">
+    <a th:href="@{/main-page}">To Search</a>
+    <img/>
+    <a th:href="@{/logout}">To Log Out</a>
+</header>
+<div>
+    <form th:action="@{/post-profile}" method="post" th:object="${user}">
+        <input type="hidden" name="userId" th:field="*{idUser}"/>
+        <label th:for="nameUser">User name</label>
+        <input type="text" th:field="*{nameUser}"/>
+        <label th:for="email">Email</label>
+        <input type="text" th:field="*{email}"/>
+        <label th:for="password">Password</label>
+        <input type="password" th:field="*{password}"/>
+        <input type="submit" value="Modify"/>
+    </form>
+</div>
+<div> <!-- fav beers -->
+    <form th:action="@{/post-beer}" method="post">
+        <label>Add a favorite beer</label>
+        <select name="idBeer">
+            <option selected value="0">Choose a beer</option>
+            <option th:each="beer : ${beers}"
+                    th:value="${beer.getIdBeer()}"
+                    th:text="${beer.getNameBeer()}">
+            </option>
+        </select>
+        <input type="submit" value="Add Beer"/>
+    </form>
+    <p>Favorite Beers :</p>
+    <ul th:each="beer : ${userBeers}">
+        <li th:text="${beer.getNameBeer()}"></li>
+    </ul>
+</div>
+<div>
+    <form th:action="@{/post-type}" method="post">
+        <label>Add a favorite beer's type</label>
+        <select name="idType">
+            <option selected value="0">Choose a type</option>
+            <option th:each="type : ${types}"
+                    th:value="${type.getIdType()}"
+                    th:text="${type.getNameType()}">
+            </option>
+        </select>
+        <input type="submit" value="Add Type"/>
+    </form>
+    <p>Favorite Types of Beer : </p>
+    <ul th:each="type : ${userTypes}">
+        <li th:text="${type.getNameType()}"></li>
+    </ul>
+
+</div>
+<footer class="footer-template">
+
+</footer>
 
 </body>
 </html>

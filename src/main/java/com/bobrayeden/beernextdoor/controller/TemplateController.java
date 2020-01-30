@@ -1,6 +1,10 @@
 package com.bobrayeden.beernextdoor.controller;
 
+import com.bobrayeden.beernextdoor.entity.Beer;
+import com.bobrayeden.beernextdoor.entity.Type;
 import com.bobrayeden.beernextdoor.entity.User;
+import com.bobrayeden.beernextdoor.repository.BeerRepository;
+import com.bobrayeden.beernextdoor.repository.TypeRepository;
 import com.bobrayeden.beernextdoor.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +15,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TemplateController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BeerRepository beerRepository;
+
+    @Autowired
+    TypeRepository typeRepository;
 
     @GetMapping("/")
     public String index() {
@@ -36,7 +49,8 @@ public class TemplateController {
     }
 
     @GetMapping("/main-page")
-    public String toMain() {
+    public String toMain(Model out,
+                         HttpSession session) {
         return "main";
     }
 
@@ -77,13 +91,81 @@ public class TemplateController {
         return "redirect:/sign-up";
     }
 
+    @PostMapping("/post-profile")
+    public String postProfile(Model out,
+                              HttpSession session,
+                              @ModelAttribute User user,
+                              @RequestParam(required = false) String nameUser,
+                              @RequestParam(required = false) String email,
+                              @RequestParam(required = false) String password) {
+        out.addAttribute("user", session.getAttribute("user"));
+        if (nameUser != null) {
+            user.setNameUser(nameUser);
+        }
+        if (email != null) {
+            user.setEmail(email);
+        }
+        if (password != null) {
+            user.setPassword(password);
+        }
+        userRepository.saveAndFlush(user);
+        session.setAttribute("user", user);
+
+        return "redirect:/user-profile";
+    }
+
+    @PostMapping("/post-beer")
+    public String postBeer(HttpSession session,
+                           @RequestParam Long idBeer) {
+        User user = (User) session.getAttribute("user");
+        List<Beer> userBeers = userRepository.findById(user.getIdUser()).get().getFavBeers();
+        if (idBeer != 0) {
+            userBeers.add(beerRepository.findById(idBeer).get());
+            user.setFavBeers(userBeers);
+            userRepository.saveAndFlush(user);
+            return "redirect:/user-profile";
+        }
+        return "redirect:/user-profile";
+    }
+
+    @PostMapping("/post-type")
+    public String postType(HttpSession session,
+                           @RequestParam Long idType) {
+        User user = (User) session.getAttribute("user");
+        List<Type> userTypes = userRepository.findById(user.getIdUser()).get().getFavTypes();
+        if (idType != 0) {
+            userTypes.add(typeRepository.findById(idType).get());
+            user.setFavTypes(userTypes);
+            userRepository.saveAndFlush(user);
+            return "redirect:/user-profile";
+        }
+        return "redirect:/user-profile";
+    }
+
     @GetMapping("/user-profile")
-    public String toProfile() {
+    public String toProfile(Model out,
+                            HttpSession session) {
+        List<Beer> beers = beerRepository.findAll();
+        out.addAttribute("beers", beers);
+
+        List<Type> types = typeRepository.findAll();
+        out.addAttribute("types", types);
+
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("user", user);
+
+        List<Beer> userBeers = userRepository.findById(user.getIdUser()).get().getFavBeers();
+        out.addAttribute("userBeers", userBeers);
+
+        List<Type> userTypes = userRepository.findById(user.getIdUser()).get().getFavTypes();
+        out.addAttribute("userTypes", userTypes);
+
         return "profile";
     }
 
     @GetMapping("/logout")
-    public String logOut() {
+    public String logOut(HttpSession session) {
+        session.removeAttribute("user");
         return "redirect:/";
     }
 }
