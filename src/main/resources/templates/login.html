@@ -21,9 +21,9 @@
         <h2>User Log In</h2>
         <a class="link-small" th:href="@{/sign-up}">I don't have an account yet</a>
         <form class="form-login" th:action="@{/connexion}" method="post">
-            <label for="nameUser">Nom d'utilisateur</label>
+            <label for="nameUser">User Name or E-mail</label>
             <input type="text" id="nameUser" name="nameUser"/>
-            <label for="password">Mot de passe</label>
+            <label for="password">Password</label>
             <input type="password" id="password" name="password"/>
             <input class="submit-button" type="submit" value="Go" name="logInUser">
         </form>
