@@ -53,6 +53,9 @@ public class TemplateController {
     @GetMapping("/main-page")
     public String toMain(Model out,
                          HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("user", user);
+
         List<Brand> brands = brandRepository.findAll();
         out.addAttribute("brands", brands);
 
@@ -76,7 +79,11 @@ public class TemplateController {
 
     @GetMapping("/search-beer")
     public String searchByBeer(Model out,
+                               HttpSession session,
                                @RequestParam Long idBeer) {
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("user", user);
+
         List<Brand> brands = brandRepository.findAll();
         out.addAttribute("brands", brands);
 
@@ -96,7 +103,11 @@ public class TemplateController {
 
     @GetMapping("/search-type")
     public String searchByType(Model out,
+                               HttpSession session,
                                @RequestParam Long idType) {
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("user", user);
+
         List<Brand> brands = brandRepository.findAll();
         out.addAttribute("brands", brands);
 
@@ -117,7 +128,11 @@ public class TemplateController {
 
     @GetMapping("/search-brewery")
     public String searchByBrand(Model out,
+                                HttpSession session,
                                 @RequestParam Long idBrand) {
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("user", user);
+
         List<Brand> brands = brandRepository.findAll();
         out.addAttribute("brands", brands);
 

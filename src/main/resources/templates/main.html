@@ -19,9 +19,9 @@
 </head>
 <body>
 <header class="header-template">
-    <a th:href="@{/user-profile}">Profil</a>
-    <img/>
-    <a th:href="@{/logout}">Log Out</a>
+    <a class="header2" th:href="@{/user-profile}">Profile</a>
+    <div class="header3"><img class="logo" th:attr="src=@{/images/beer-next-door.png}"/></div>
+    <a class="header4" th:href="@{/logout}">Log Out</a>
 </header>
 <div class="main-page-template">
     <div class="map-search">
@@ -64,7 +64,7 @@
         </form>
     </div>
     <div class="results">
-        <p>Results:</p>
+        <h3>Results:</h3>
         <ul th:each="store : ${storeResults}">
             <li th:text="${store.getNameStore()}"></li>
             <li th:text="${store.getAddress()}"></li>

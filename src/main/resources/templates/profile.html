@@ -12,56 +12,60 @@
 </head>
 <body>
 <header class="header-template">
-    <a th:href="@{/main-page}">To Search</a>
-    <img/>
-    <a th:href="@{/logout}">To Log Out</a>
+    <a class="header2" th:href="@{/main-page}">Search</a>
+    <div class="header3"><img class="logo" th:attr="src=@{/images/beer-next-door.png}"/></div>
+    <a class="header4" th:href="@{/logout}">Log Out</a>
 </header>
-<div>
-    <form th:action="@{/post-profile}" method="post" th:object="${user}">
-        <input type="hidden" name="userId" th:field="*{idUser}"/>
-        <label th:for="nameUser">User name</label>
-        <input type="text" th:field="*{nameUser}"/>
-        <label th:for="email">Email</label>
-        <input type="text" th:field="*{email}"/>
-        <label th:for="password">Password</label>
-        <input type="password" th:field="*{password}"/>
-        <input type="submit" value="Modify"/>
-    </form>
-</div>
-<div> <!-- fav beers -->
-    <form th:action="@{/post-beer}" method="post">
-        <label for="idBeer">Add a favorite beer</label>
-        <select id="idBeer" name="idBeer">
-            <option selected value="0">Choose a beer</option>
-            <option th:each="beer : ${beers}"
-                    th:value="${beer.getIdBeer()}"
-                    th:text="${beer.getNameBeer()}">
-            </option>
-        </select>
-        <input type="submit" value="Add Beer"/>
-    </form>
-    <p>Favorite Beers :</p>
-    <ul th:each="beer : ${userBeers}">
-        <li th:text="${beer.getNameBeer()}"></li>
-    </ul>
-</div>
-<div>
-    <form th:action="@{/post-type}" method="post">
-        <label for="idType">Add a favorite beer's type</label>
-        <select id="idType" name="idType">
-            <option selected value="0">Choose a type</option>
-            <option th:each="type : ${types}"
-                    th:value="${type.getIdType()}"
-                    th:text="${type.getNameType()}">
-            </option>
-        </select>
-        <input type="submit" value="Add Type"/>
-    </form>
-    <p>Favorite Types of Beer : </p>
-    <ul th:each="type : ${userTypes}">
-        <li th:text="${type.getNameType()}"></li>
-    </ul>
-
+<div class="profile-page-template">
+    <div class="user-info">
+        <h3>Your account log infos</h3>
+        <form class="form-login" th:action="@{/post-profile}" method="post" th:object="${user}">
+            <input type="hidden" name="userId" th:field="*{idUser}"/>
+            <label th:for="nameUser">User name</label>
+            <input type="text" th:field="*{nameUser}"/>
+            <label th:for="email">Email</label>
+            <input type="text" th:field="*{email}"/>
+            <label th:for="password">Password</label>
+            <input type="password" th:field="*{password}"/>
+            <input class="submit-button" type="submit" value="Modify"/>
+        </form>
+    </div>
+    <div class="user-fav-beers profile-fav">
+        <h3>Your beloved beers</h3>
+        <form class="" th:action="@{/post-beer}" method="post">
+            <label for="idBeer">Add a favorite beer</label>
+            <select id="idBeer" name="idBeer">
+                <option selected value="0">Choose a beer</option>
+                <option th:each="beer : ${beers}"
+                        th:value="${beer.getIdBeer()}"
+                        th:text="${beer.getNameBeer()}">
+                </option>
+            </select>
+            <input type="submit" value="Add Beer"/>
+        </form>
+        <h4>Favorite Beers :</h4>
+        <ul th:each="beer : ${userBeers}">
+            <li th:text="${beer.getNameBeer()}"></li>
+        </ul>
+    </div>
+    <div class="user-fav-types profile-fav">
+        <h3>Your favorite beer types</h3>
+        <form th:action="@{/post-type}" method="post">
+            <label for="idType">Add a favorite beer's type</label>
+            <select id="idType" name="idType">
+                <option selected value="0">Choose a type</option>
+                <option th:each="type : ${types}"
+                        th:value="${type.getIdType()}"
+                        th:text="${type.getNameType()}">
+                </option>
+            </select>
+            <input type="submit" value="Add Type"/>
+        </form>
+        <h4>Favorite Types of Beer : </h4>
+        <ul th:each="type : ${userTypes}">
+            <li th:text="${type.getNameType()}"></li>
+        </ul>
+    </div>
 </div>
 <footer class="footer-template">
 
