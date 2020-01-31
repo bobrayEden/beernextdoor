@@ -1,5 +1,6 @@
 package com.bobrayeden.beernextdoor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -14,21 +15,23 @@ public class Beer {
     private Long idBeer;
     private String nameBeer;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @Cascade(org.hibernate.annotations.CascadeType.REFRESH)
     @JoinColumn(name = "id_type")
     private Type type;
 
-    @ManyToOne(fetch =  FetchType.LAZY, optional = false)
+    @ManyToOne(fetch =  FetchType.EAGER, optional = false)
     @Cascade(org.hibernate.annotations.CascadeType.REFRESH)
     @JoinColumn(name = "id_brand")
     private Brand brand;
 
     @ManyToMany(mappedBy = "storeBeers")
+    @JsonIgnore
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Store> stores = new ArrayList<>();
 
     @ManyToMany(mappedBy = "favBeers")
+    @JsonIgnore
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<User> beers = new ArrayList<>();
 

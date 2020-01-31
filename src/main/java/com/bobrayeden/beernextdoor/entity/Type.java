@@ -1,5 +1,6 @@
 package com.bobrayeden.beernextdoor.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
@@ -14,10 +15,12 @@ public class Type {
     private String nameType;
 
     @OneToMany(mappedBy = "type")
+    @JsonIgnore
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Beer> beers;
 
     @ManyToMany(mappedBy = "favTypes")
+    @JsonIgnore
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<User> users;
 
