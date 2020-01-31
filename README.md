@@ -15,21 +15,21 @@ JPA/HIBERNATE will create tables.
 Currently, you can request :
 
 ### BeerController
-@GetMapping("/beers)  
+@GetMapping("/beers")  
 @GetMapping("/beers/{id}")  
 @PostMapping("/beers")  
 @PutMapping("/beers/{id}")  
 @DeleteMapping("/beers/{id}")  
 
 ### TypeController
-@GetMapping("/types)  
+@GetMapping("/types")  
 @GetMapping("/types/{id}")  
 @PostMapping("/types")  
 @PutMapping("/types/{id}")  
 @DeleteMapping("/types/{id}")  
 
 ### BrandController
-@GetMapping("/brands)  
+@GetMapping("/brands")  
 @GetMapping("/brands/{id}")  
 @PostMapping("/brands")  
 @PutMapping("/brands/{id}")  
