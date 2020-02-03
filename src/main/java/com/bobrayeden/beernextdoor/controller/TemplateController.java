@@ -2,7 +2,9 @@ package com.bobrayeden.beernextdoor.controller;
 
 import com.bobrayeden.beernextdoor.entity.*;
 import com.bobrayeden.beernextdoor.repository.*;
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +35,9 @@ public class TemplateController {
 
     @Autowired
     StoreRepository storeRepository;
+
+    @Value("${spring.datasource.salty}")
+    private String saltyPass;
 
     @GetMapping("/")
     public String index() {
@@ -155,12 +161,15 @@ public class TemplateController {
     public String connexion(@RequestParam String nameUser,
                             @RequestParam String password,
                             HttpSession session) {
-        if (userRepository.findByNameUserAndPassword(nameUser, password).isPresent()) {
-            User user = userRepository.findByNameUserAndPassword(nameUser, password).get();
+        String sha256hex = Hashing.sha256()
+                .hashString(saltyPass + password, StandardCharsets.UTF_8)
+                .toString();
+        if (userRepository.findByNameUserAndPassword(nameUser, sha256hex).isPresent()) {
+            User user = userRepository.findByNameUserAndPassword(nameUser, sha256hex).get();
             session.setAttribute("user", user);
             return "redirect:/main-page";
-        } else if (userRepository.findByEmailAndPassword(nameUser, password).isPresent()) {
-            User user = userRepository.findByEmailAndPassword(nameUser, password).get();
+        } else if (userRepository.findByEmailAndPassword(nameUser, sha256hex).isPresent()) {
+            User user = userRepository.findByEmailAndPassword(nameUser, sha256hex).get();
             session.setAttribute("user", user);
             return "redirect:/main-page";
         }
@@ -179,6 +188,10 @@ public class TemplateController {
                 return "redirect:/sign-up";
             }
             if (user.getPassword().equals(confirmPass)) {
+                String sha256hex = Hashing.sha256()
+                        .hashString(saltyPass + user.getPassword(), StandardCharsets.UTF_8)
+                        .toString();
+                user.setPassword(sha256hex);
                 userRepository.saveAndFlush(user);
                 out.addAttribute("user", user);
                 session.setAttribute("user", user);
