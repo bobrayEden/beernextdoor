@@ -48,6 +48,7 @@ public class TemplateController {
         return "login";
     }
 
+    //TODO checker pourquoi ça remplit les champs pour sign up
     @GetMapping("/sign-up")
     public String toSign(Model out,
                          @ModelAttribute User user) {
@@ -177,6 +178,7 @@ public class TemplateController {
         return "login";
     }
 
+    //TODO générer une apiKey pour l'utilisateur
     @PostMapping("/sign-in")
     public String signIn(Model out,
                          HttpSession session,
@@ -203,7 +205,7 @@ public class TemplateController {
     }
 
 
-    //TODO réencrypter le mot de passe lors de l'update du profil
+    //TODO vérifier mdp et confirmPass avant d'autoriser le changement
     @PostMapping("/post-profile")
     public String postProfile(Model out,
                               HttpSession session,
