@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class TemplateController {
@@ -83,6 +82,8 @@ public class TemplateController {
         return "main";
     }
 
+    //TODO Gérer l'absence de résultats
+    //TODO refactor mes 3 méthodes de search en 1
     @GetMapping("/search-beer")
     public String searchByBeer(Model out,
                                HttpSession session,
@@ -201,6 +202,8 @@ public class TemplateController {
         return "redirect:/sign-up";
     }
 
+
+    //TODO réencrypter le mot de passe lors de l'update du profil
     @PostMapping("/post-profile")
     public String postProfile(Model out,
                               HttpSession session,
@@ -216,7 +219,10 @@ public class TemplateController {
             user.setEmail(email);
         }
         if (password != null) {
-            user.setPassword(password);
+            String sha256hex = Hashing.sha256()
+                    .hashString(saltyPass + password, StandardCharsets.UTF_8)
+                    .toString();
+            user.setPassword(sha256hex);
         }
         userRepository.saveAndFlush(user);
         session.setAttribute("user", user);
@@ -278,6 +284,4 @@ public class TemplateController {
         session.removeAttribute("user");
         return "redirect:/";
     }
-
-
 }
