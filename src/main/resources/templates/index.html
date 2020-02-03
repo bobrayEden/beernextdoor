@@ -13,15 +13,18 @@
 </head>
 <body>
 <header class="header-template">
-    <img/>
-    <a th:href="@{/login}">To Login</a>
+    <div class="header3"><img class="logo" th:attr="src=@{/images/beer-next-door.png}"/></div>
 </header>
 <div class="main-template-title">
     <h1 class="title">Beer Next Door</h1>
-    <section class="summary">blablabla</section>
+    <section class="summary">
+        Beer Next Door allows you to find craft beers you like, where you are, now ! <br/>
+        Browse the app, add your favorites, and directly see if you can buy them in your direct vicinity.<br/>
+        Find the perfect store or just the one that suits your taste... and share your prefered beer shelf with others!
+    </section>
     <div class="goTo">
-        <a th:href="@{/sign-up}">GO to signUp</a>
-        <a th:href="@{/login}">Go to Login</a>
+        <div><a th:href="@{/sign-up}">Sign up</a></div>
+        <div><a th:href="@{/login}">Log in</a></div>
     </div>
 
 </div>

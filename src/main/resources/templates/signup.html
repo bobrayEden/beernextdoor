@@ -13,26 +13,25 @@
 </head>
 <body>
 <header class="header-template">
-    <img/>
-    <a th:href="@{/login}">To Login</a>
+    <div class="header3"><a th:href="@{/}"><img class="logo" th:attr="src=@{/images/beer-next-door.png}"/></a></div>
 </header>
 <div class="main-template-title">
     <h1 class="title">Beer Next Door</h1>
     <div class="sign-up-form">
-        <a th:href="@{/login}">J'ai déjà un compte</a>
-        <form th:action="@{/sign-in}" method="post" th:object="${user}">
-            <label th:for="nameUser">Nom d'utilisateur</label>
+        <h2>Account creation</h2>
+        <a class="link-small" th:href="@{/login}">I already have an account</a>
+        <form class="form-login" th:action="@{/sign-in}" method="post" th:object="${user}">
+            <label th:for="nameUser">User Name</label>
             <input type="text" th:field="*{nameUser}"/>
             <label th:for="email">E-mail</label>
             <input type="text" th:field="*{email}"/>
-            <label th:for="password">Mot de passe</label>
+            <label th:for="password">Password</label>
             <input type="password" th:field="*{password}"/>
-            <label for="confirmPass">Confirmation du mot de passe</label>
+            <label for="confirmPass">Password confirmation</label>
             <input id="confirmPass" type="password" name="confirmPass"/>
-            <input type="submit" value="Valider" name="registerUser">
+            <input class="submit-button" type="submit" value="Go" name="registerUser">
         </form>
     </div>
-
 </div>
 <footer class="footer-template">
 
