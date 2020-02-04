@@ -2,6 +2,8 @@ package com.bobrayeden.beernextdoor.controller;
 
 import com.bobrayeden.beernextdoor.entity.*;
 import com.bobrayeden.beernextdoor.repository.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +60,7 @@ public class TemplateController {
 
     @GetMapping("/main-page")
     public String toMain(Model out,
-                         HttpSession session) {
+                         HttpSession session) throws JsonProcessingException {
         User user = (User) session.getAttribute("user");
         out.addAttribute("user", user);
 
@@ -73,6 +75,13 @@ public class TemplateController {
 
         List<Store> stores = storeRepository.findAll();
         out.addAttribute("stores", stores);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> storeAsStrings = new ArrayList<>();
+        for (Store store : stores) {
+            storeAsStrings.add(objectMapper.writeValueAsString(store));
+        }
+        out.addAttribute("storeJson", storeAsStrings);
 
         List<Float[]> storeCoords = new ArrayList<>();
         for (Store store : stores) {
