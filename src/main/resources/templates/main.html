@@ -74,7 +74,8 @@
 <footer class="footer-template">
 
 </footer>
-<script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
     let mymap = L.map('map').locate({setView: true, maxZoom: 16});
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -84,12 +85,11 @@
         accessToken: 'pk.eyJ1IjoiYm9icmF5ZWRlbiIsImEiOiJjazV6ajk4YmUxZmY1M2xydnI4dWk2bG5mIn0.TjX5W6cvHiO4B1NoXr0WqQ'
     }).addTo(mymap);
 
-    let latlng = [43.5973, 1.42975];
-    let latlng2 = [43.5984, 1.43345];
-    const marker = L.marker(latlng).addTo(mymap);
-    const marker2 = L.marker(latlng2).addTo(mymap);
+    let jsonThingy = [# th:utext="${storeJson}"/];
+    jsonThingy.forEach(store => {L.marker(store.coord).addTo(mymap)});
 
 
+    /*]]>*/
 </script>
 </body>
 </html>
