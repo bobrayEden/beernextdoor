@@ -97,12 +97,10 @@
         accessToken: 'pk.eyJ1IjoiYm9icmF5ZWRlbiIsImEiOiJjazV6ajk4YmUxZmY1M2xydnI4dWk2bG5mIn0.TjX5W6cvHiO4B1NoXr0WqQ'
     }).addTo(mymap);
 
-    let jsonThingy = [# th:utext="${storeJson}"/];
-    jsonThingy.forEach(store => {store.temple ?
+    let jsonStoreList = [# th:utext="${storeJson}"/];
+    jsonStoreList.forEach(store => {store.temple ?
         L.marker(store.coord, {icon: templeIcon}).addTo(mymap).bindPopup('' + store.nameStore + " \n " + store.address).openPopup() :
         L.marker(store.coord, {icon: hopIcon}).addTo(mymap).bindPopup('' + store.nameStore + " \n " + store.address).openPopup()});
-    console.log(jsonThingy);
-
 
     /*]]>*/
 </script>
